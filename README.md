@@ -1,4 +1,4 @@
-# Irigasi Pintar Berbasis IoT · Tim [nama tim]
+# Irigasi Pintar Berbasis IoT · Tim [DK (Dio Kindi]
 
 **Kasus:** 07 - Irigasi Pintar Berbasis IoT · **Aplikasi:** https://irigasi-pintar-berbasis-iot-kasus-07-dio-kindi.streamlit.app/ · **Video:** [tautan video]
 
