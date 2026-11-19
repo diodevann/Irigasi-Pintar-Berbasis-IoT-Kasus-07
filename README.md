@@ -7,7 +7,6 @@
 | [I Gede Dio Devan Satria Prawira ] | [2401871] | Menyiapkan lingkungan kerja dan `requirements.txt`. Membuat API FastAPI (`app/api/main.py`) beserta validasi masukan yang tidak wajar. Men-*deploy* backend ke PythonAnywhere dan frontend ke Streamlit Community Cloud, lalu menghubungkan keduanya dan mengujinya dari ujung ke ujung. Menulis README ini serta bagian Aplikasi dan Keterbatasan di laporan. |
 | [Reifana Muhamad Al Kindi] | [2400867] | Memeriksa dan membersihkan data mentah, EDA, membuat fitur (`src/features.py`). Melatih, men-*tuning*, dan mengevaluasi model di *notebook*, lalu menyimpan model dan metadata (`src/train.py`, `artifacts/`). Membuat antarmuka Streamlit (`app/ui/streamlit_app.py`). Menulis bagian Masalah, Data, Metode, dan Hasil di laporan. |
 
-Video demo dibuat berdua, dan masing-masing menjelaskan bagian yang dikerjakannya sendiri.
 
 ## Masalah dan pengguna
 
