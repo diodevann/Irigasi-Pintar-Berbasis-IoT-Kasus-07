@@ -1,0 +1,74 @@
+{
+  "project": "Kasus 07 - Irigasi Pintar Berbasis IoT",
+  "model_version": "1.0.0",
+  "primary_model": "RandomForestClassifier",
+  "secondary_model": "Ensemble (RandomForestClassifier + HistGradientBoostingClassifier)",
+  "trained_at_utc": "2026-11-19T11:09:40Z",
+  "sklearn_version": "1.9.1",
+  "primary_metric": "F1-Score",
+  "threshold": {
+    "random_forest": 0.61,
+    "hist_gradient_boosting": 0.47,
+    "ensemble": 0.54,
+    "business_rationale": "Threshold 0.61 dipilih dari validation set untuk menyeimbangkan precision tinggi (mencegah pemborosan air dan busuk akar) serta recall (mencegah tanaman stres kekeringan)."
+  },
+  "input_features": [
+    "umur_tanaman_hari",
+    "kelembaban_tanah_pct",
+    "suhu_udara_C",
+    "kelembaban_udara_pct",
+    "cahaya_lux",
+    "curah_hujan_mm",
+    "prakiraan_hujan_6jam_mm",
+    "tanaman_enc",
+    "jenis_tanah_enc",
+    "petak_enc",
+    "kt_lag1",
+    "kt_lag2",
+    "kt_lag3",
+    "kt_diff1",
+    "kt_diff2",
+    "kt_min_3h",
+    "kt_mean_3h",
+    "hujan_lag1",
+    "prakiraan_lag1",
+    "jam",
+    "jam_sin",
+    "jam_cos",
+    "evap_index",
+    "total_air_6jam",
+    "ambang_estimasi",
+    "defisit_kt_saat_ini",
+    "defisit_kt_min3h",
+    "lonjakan_siram_tanpa_hujan"
+  ],
+  "data_split": {
+    "method": "time-based split",
+    "train_rows": 23307,
+    "validation_rows": 5353,
+    "test_rows": 6495
+  },
+  "data_cleaning": {
+    "duplikat_waktu_petak": 297,
+    "inkonsistensi_label_tanaman": 1055,
+    "cahaya_lux_negatif": 70,
+    "kelembaban_tanah_anomali": 103,
+    "suhu_udara_hilang": 527,
+    "prakiraan_hujan_hilang": 351
+  },
+  "metrics_validation": {
+    "f1_baseline": 0.1783,
+    "f1_ml_rf": 0.8609,
+    "f1_ml_hgb": 0.8491,
+    "f1_ml_ensemble": 0.863
+  },
+  "metrics_test": {
+    "f1_baseline": 0.1575,
+    "f1_random_forest": 0.8287,
+    "precision_random_forest": 0.911,
+    "recall_random_forest": 0.76,
+    "accuracy_random_forest": 0.9915,
+    "f1_hist_gradient_boosting": 0.8269,
+    "f1_ensemble": 0.8313
+  }
+}
