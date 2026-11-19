@@ -116,4 +116,4 @@ app/            API (FastAPI) dan antarmuka (Streamlit)
 - [x] `artifacts/metadata.json` berisi versi model, fitur masukan, *threshold*, dan metrik
 - [x] Aplikasi dapat dibuka orang lain melalui tautan, termasuk dari ponsel
 - [x] Aplikasi tidak berhenti mendadak ketika menerima masukan yang tidak wajar
-- [ ] Laporan paling banyak 6 halaman dan video paling lama 5 menit
+- [x] Laporan paling banyak 6 halaman dan video paling lama 5 menit
