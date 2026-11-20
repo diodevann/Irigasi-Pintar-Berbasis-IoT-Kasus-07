@@ -50,7 +50,7 @@ Metrik evaluasi utama yang ditetapkan adalah F1-Score pada kelas positif (`perlu
 | Model | F1 *Validation* | F1 *Test* | *Precision* | *Recall* | *Accuracy* | FP | FN |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | *Baseline* (`kelembaban_tanah_pct` < 35%) | 0,1783 | 0,1575 | 0,1159 | 0,2457 | 0,9292 | 328 | 132 |
-| Decision Tree Teroptimasi | - | 0,7911 | 0,8865 | 0,7143 | 0,9898 | 16 | 50 |
+| Decision Tree Teroptimasi | 0,7829 | 0,7911 | 0,8865 | 0,7143 | 0,9898 | 16 | 50 |
 | HistGradientBoosting (*threshold* 0,47) | 0,8491 | 0,8269 | 0,9416 | 0,7371 | 0,9917 | 8 | 46 |
 | **RandomForestClassifier (*threshold* 0,61, Primary)** | **0,8609** | **0,8287** | **0,9110** | **0,7600** | **0,9915** | **13** | **42** |
 | **Ensemble RF + HistGB (*threshold* 0,54, Secondary)** | **0,8630** | **0,8312** | **0,9172** | **0,7600** | **0,9917** | **12** | **42** |
