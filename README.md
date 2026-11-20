@@ -1,6 +1,6 @@
 # Irigasi Pintar Berbasis IoT · Tim DK (Dio Kindi)
 
-**Kasus:** 07 - Irigasi Pintar Berbasis IoT · **Aplikasi:** https://irigasi-pintar-berbasis-iot-kasus-07-dio-kindi.streamlit.app/ · **Video:** [tautan video]
+**Kasus:** 07 - Irigasi Pintar Berbasis IoT · **Aplikasi:** https://irigasi-pintar-berbasis-iot-kasus-07-dio-kindi.streamlit.app/ · **Video:** [https://drive.google.com/file/d/10c42r3GIUSjcg7xbWncmHFQFmWg0hs1K/view?usp=sharing]
 
 | Anggota | NIM | Bagian yang dikerjakan |
 |---|---|---|
