@@ -3,14 +3,14 @@
   "model_version": "1.0.0",
   "primary_model": "RandomForestClassifier",
   "secondary_model": "Ensemble (RandomForestClassifier + HistGradientBoostingClassifier)",
-  "trained_at_utc": "2026-11-19T11:09:40Z",
+  "trained_at_utc": "2026-11-20T01:05:53Z",
   "sklearn_version": "1.9.1",
   "primary_metric": "F1-Score",
   "threshold": {
     "random_forest": 0.61,
     "hist_gradient_boosting": 0.47,
     "ensemble": 0.54,
-    "business_rationale": "Threshold 0.61 dipilih dari validation set untuk menyeimbangkan precision tinggi (mencegah pemborosan air dan busuk akar) serta recall (mencegah tanaman stres kekeringan)."
+    "business_rationale": "Threshold optimal dipilih dari validation set untuk menyeimbangkan precision tinggi (mencegah pemborosan air dan busuk akar) serta recall (mencegah tanaman stres kekeringan)."
   },
   "input_features": [
     "umur_tanaman_hari",
