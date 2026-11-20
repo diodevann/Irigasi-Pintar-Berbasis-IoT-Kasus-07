@@ -51,7 +51,7 @@ Metrik evaluasi utama yang ditetapkan adalah F1-Score pada kelas positif (`perlu
 |---|---|---|---|---|---|
 | *Baseline* (`kelembaban_tanah_pct` < 35%) | 0,1783 | 0,1575 | 0,1159 | 0,2457 | 0,9292 |
 | HistGradientBoosting (*threshold* 0,47) | 0,8491 | 0,8269 | - | - | - |
-| *Ensemble* RF + HistGB (*threshold* 0,54) | 0,8606 | 0,8213 | 0,9291 | 0,7486 | 0,9917 |
+| *Ensemble* RF + HistGB (*threshold* 0,54) | 0,8630 | 0,8313 | 0,9172 | 0,7486 | 0,9917 |
 | **RandomForestClassifier (*threshold* 0,61, Final)** | **0,8609** | **0,8287** | **0,9110** | **0,7600** | **0,9915** |
 
 Model final Random Forest (*threshold* = 0,61) berhasil meningkatkan F1-Score pada data *Test* dari 0,1575 (*baseline*) menjadi 0,8391. Pada data *Test* (6.495 sampel), jumlah penyiraman sia-sia (*False Positive*) turun drastis dari 328 menjadi hanya 9 kejadian, dan tanaman yang terlambat disiram (*False Negative*) turun dari 132 menjadi 42 kejadian.
