@@ -47,22 +47,21 @@ Dari situ dibuat 28 fitur, di antaranya kelembapan tanah 1-3 jam sebelumnya, sel
 
 Metrik evaluasi utama yang ditetapkan adalah F1-Score pada kelas positif (`perlu_siram = 1`). Model dievaluasi pada *Validation Set* untuk optimasi *threshold*, lalu diuji satu kali pada *Test Set*.
 
-| Model | F1 *Validation* | F1 *Test* | *Precision* | *Recall* | *Accuracy* |
-|---|---|---|---|---|---|
-| *Baseline* (`kelembaban_tanah_pct` < 35%) | 0,1783 | 0,1575 | 0,1159 | 0,2457 | 0,9292 |
-| HistGradientBoosting (*threshold* 0,47) | 0,8491 | 0,8269 | 0,9416 | 0,7371 | 0,9917 |
-| *Ensemble* RF + HistGB (*threshold* 0,54) | 0,8630 | 0,8313 | 0,9172 | 0,7486 | 0,9917 |
-| **RandomForestClassifier (*threshold* 0,61, Final)** | **0,8609** | **0,8287** | **0,9110** | **0,7600** | **0,9915** |
+| Model | F1 *Validation* | F1 *Test* | *Precision* | *Recall* | *Accuracy* | FP | FN |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| *Baseline* (`kelembaban_tanah_pct` < 35%) | 0,1783 | 0,1575 | 0,1159 | 0,2457 | 0,9292 | 328 | 132 |
+| Decision Tree Teroptimasi | - | 0,7911 | 0,8865 | 0,7143 | 0,9898 | 16 | 50 |
+| HistGradientBoosting (*threshold* 0,47) | 0,8491 | 0,8269 | 0,9416 | 0,7371 | 0,9917 | 8 | 46 |
+| **RandomForestClassifier (*threshold* 0,61, Primary)** | **0,8609** | **0,8287** | **0,9110** | **0,7600** | **0,9915** | **13** | **42** |
+| **Ensemble RF + HistGB (*threshold* 0,54, Secondary)** | **0,8630** | **0,8312** | **0,9172** | **0,7600** | **0,9917** | **12** | **42** |
 
-Model final Random Forest (*threshold* = 0,61) berhasil meningkatkan F1-Score pada data *Test* dari 0,1575 (*baseline*) menjadi 0,8391. Pada data *Test* (6.495 sampel), jumlah penyiraman sia-sia (*False Positive*) turun drastis dari 328 menjadi hanya 9 kejadian, dan tanaman yang terlambat disiram (*False Negative*) turun dari 132 menjadi 42 kejadian.
+*(Catatan: pada `artifacts/metadata.json`, F1 Test Ensemble terbulatkan menjadi `0,8313`.)*
 
-Dengan asumsi biaya agronomi Rp15.000 untuk setiap FP (pemborosan air dan risiko busuk akar) serta Rp45.000 untuk setiap FN (tanaman stres), estimasi kerugian selama 17 hari uji berkurang dari Rp10.860.000 menjadi Rp2.025.000. Ini memberikan penghematan biaya sebesar Rp8.835.000 atau 81,4%.
+Model utama Random Forest (*threshold* = 0,61) berhasil meningkatkan F1-Score pada data *Test* dari 0,1575 (*baseline*) menjadi 0,8287 (+0,6712), sedangkan model sekunder Ensemble RF + HistGB (*threshold* = 0,54) meraih F1-Score 0,8312. Pada data *Test* (6.495 sampel), Random Forest menurunkan jumlah penyiraman sia-sia (*False Positive*) dari 328 menjadi hanya 13 kejadian (12 pada Ensemble) dan tanaman yang terlambat disiram (*False Negative*) dari 132 menjadi 42 kejadian.
 
-Peningkatan performa F1-Score juga terlihat merata di semua jenis tanaman dibandingkan aturan *baseline*:
+**Alasan pemilihan Random Forest sebagai model utama (*primary*):** Meskipun *Ensemble* RF + HistGB mencatat F1-Score *Test* sedikit lebih tinggi (+0,0025), selisih tersebut pada 6.495 sampel uji hanya setara dengan **1 kejadian *False Positive*** (13 vs 12) dengan jumlah *False Negative* yang identik (42), atau selisih biaya Rp15.000 selama 17 hari uji. Sebagai model tunggal, Random Forest lebih ringan memori, lebih cepat saat inferensi pada *server* terbatas (PythonAnywhere), serta lebih mudah dijelaskan ke agronom melalui *feature importance* bawaan. Model *Ensemble* tetap disediakan sebagai model sekunder (*secondary*) yang dapat dipilih pengguna pada *sidebar* aplikasi Streamlit.
 
-- **Selada**: 0,1081 menjadi 0,8933
-- **Cabai**: 0,1353 menjadi 0,7957
-- **Tomat**: 0,2947 menjadi 0,7838
+Dengan asumsi biaya agronomi Rp15.000 untuk setiap FP (pemborosan air dan risiko busuk akar) serta Rp45.000 untuk setiap FN (tanaman stres), estimasi kerugian selama 17 hari uji berkurang dari Rp10.860.000 menjadi Rp2.085.000 pada Random Forest (penghematan Rp8.775.000 atau 80,8%) dan Rp2.070.000 pada Ensemble (penghematan Rp8.790.000 atau 80,9%).
 
 Fitur yang paling berpengaruh pada keputusan model Random Forest adalah selisih kelembapan tanah terhadap ambang batas dalam 3 jam terakhir (`defisit_kt_min3h`, 21,2%), disusul kelembapan tanah 1 jam sebelumnya (`kt_lag1`, 10,0%), nilai terendah 3 jam terakhir (`kt_min_3h`, 8,2%), selisih saat ini (`defisit_kt_saat_ini`, 7,2%), `kt_lag2` (6,0%), dan pola waktu harian `jam_cos` (5,9%). Dominasi fitur ini masuk akal secara agronomi karena keputusan penyiraman ditentukan oleh seberapa jauh kelembapan tanah sudah turun di bawah batas aman tanamannya selama beberapa jam terakhir serta pola waktu harian.
 
