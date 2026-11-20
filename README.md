@@ -84,7 +84,7 @@ Streamlit (Streamlit Community Cloud)  --HTTP-->  FastAPI (PythonAnywhere)  --> 
 
 API untuk sensor di lapangan ada di PythonAnywhere (https://diodevann.pythonanywhere.com/docs#/), sedangkan dashboard ada di Streamlit Community Cloud. Jadi kalau dashboard sedang *maintenance* atau ramai pengunjung, API tetap berjalan. Alamat API dibaca dari variabel lingkungan `IRRIGATION_API_URL`. Jika API tidak bisa dihubungi, dashboard memakai model di `artifacts/` secara langsung.
 
-**Masukan dan keluaran.** Masukannya tanaman, jenis tanah, petak, umur tanaman, jam, kelembapan tanah sekarang dan 1-2 jam sebelumnya, suhu, kelembapan udara, cahaya, curah hujan, dan prakiraan hujan 6 jam. Keluarannya keputusan siram atau tidak, probabilitas, *threshold* yang dipakai, pembanding dari *baseline*, dan ringkasan agronomi. Masukan yang kosong, bukan angka, atau di luar rentang wajar ditolak dengan HTTP 422 dan daftar pesan (error) galat, sehingga aplikasi tidak berhenti mendadak.
+**Masukan dan keluaran.** Masukannya tanaman, jenis tanah, petak, umur tanaman, jam, kelembapan tanah sekarang dan 1-2 jam sebelumnya, suhu, kelembapan udara, cahaya, curah hujan, dan prakiraan hujan 6 jam. Keluarannya keputusan siram atau tidak, probabilitas, *threshold* yang dipakai, pembanding dari *baseline*, dan ringkasan agronomi. Masukan yang kosong, bukan angka, atau di luar rentang wajar ditolak dengan HTTP 422 dan daftar pesan galat (error), sehingga aplikasi tidak berhenti mendadak.
 
 ## Struktur repositori
 
