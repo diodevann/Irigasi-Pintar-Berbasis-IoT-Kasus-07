@@ -169,7 +169,7 @@ jam = st.sidebar.slider("Jam Pengukuran (0-23 WIB):", min_value=0, max_value=23,
 
 mode_model = st.sidebar.radio(
     "Pilih Model Inferensi:",
-    ["Random Forest (F1 = 0.8391)", "Ensemble RF + HistGB (F1 = 0.8291)"],
+    ["Random Forest (F1 = 0.8287)", "Ensemble RF + HistGB (F1 = 0.8313)"],
     index=0,
 )
 model_type_key = "rf" if mode_model.startswith("Random Forest") else "ensemble"
