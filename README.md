@@ -1,12 +1,11 @@
-# Irigasi Pintar Berbasis IoT · Tim [DK (Dio Kindi)]
+# Irigasi Pintar Berbasis IoT · Tim DK (Dio Kindi)
 
 **Kasus:** 07 - Irigasi Pintar Berbasis IoT · **Aplikasi:** https://irigasi-pintar-berbasis-iot-kasus-07-dio-kindi.streamlit.app/ · **Video:** [tautan video]
 
 | Anggota | NIM | Bagian yang dikerjakan |
 |---|---|---|
-| [I Gede Dio Devan Satria Prawira ] | [2401871] | Menyiapkan lingkungan kerja dan `requirements.txt`. Membuat API FastAPI (`app/api/main.py`) beserta validasi masukan yang tidak wajar. Men-*deploy* backend ke PythonAnywhere dan frontend ke Streamlit Community Cloud, lalu menghubungkan keduanya dan mengujinya dari ujung ke ujung. Menulis README ini serta bagian Aplikasi dan Keterbatasan di laporan. |
-| [Reifana Muhamad Al Kindi] | [2400867] | Memeriksa dan membersihkan data mentah, EDA, membuat fitur (`src/features.py`). Melatih, men-*tuning*, dan mengevaluasi model di *notebook*, lalu menyimpan model dan metadata (`src/train.py`, `artifacts/`). Membuat antarmuka Streamlit (`app/ui/streamlit_app.py`). Menulis bagian Masalah, Data, Metode, dan Hasil di laporan. |
-
+| I Gede Dio Devan Satria Prawira | 2401871 | Menyiapkan lingkungan kerja dan `requirements.txt`. Membuat API FastAPI (`app/api/main.py`) beserta validasi masukan yang tidak wajar. Men-*deploy* backend ke PythonAnywhere dan frontend ke Streamlit Community Cloud, lalu menghubungkan keduanya dan mengujinya dari ujung ke ujung. Menulis README ini serta bagian Aplikasi dan Keterbatasan di laporan. |
+| Reifana Muhamad Al Kindi | 2400867 | Memeriksa dan membersihkan data mentah, EDA, membuat fitur (`src/features.py`). Melatih, men-*tuning*, dan mengevaluasi model di *notebook*, lalu menyimpan model dan metadata (`src/train.py`, `artifacts/`). Membuat antarmuka Streamlit (`app/ui/streamlit_app.py`). Menulis bagian Masalah, Data, Metode, dan Hasil di laporan. |
 
 ## Masalah dan pengguna
 
@@ -53,13 +52,14 @@ Metrik evaluasi utama yang ditetapkan adalah F1-Score pada kelas positif (`perlu
 | *Baseline* (`kelembaban_tanah_pct` < 35%) | 0,1783 | 0,1575 | 0,1159 | 0,2457 | 0,9292 |
 | HistGradientBoosting (*threshold* 0,47) | 0,8581 | 0,8179 | - | - | - |
 | *Ensemble* RF + HistGB (*threshold* 0,54) | 0,8621 | 0,8291 | 0,9291 | 0,7486 | 0,9917 |
-| **RandomForestClassifier (*threshold* 0,61, Final)** | 0,8562 | 0,8391 | 0,9366 | 0,7600 | 0,9921 |
+| **RandomForestClassifier (*threshold* 0,61, Final)** | **0,8562** | **0,8391** | **0,9366** | **0,7600** | **0,9921** |
 
 Model final Random Forest (*threshold* = 0,61) berhasil meningkatkan F1-Score pada data *Test* dari 0,1575 (*baseline*) menjadi 0,8391. Pada data *Test* (6.495 sampel), jumlah penyiraman sia-sia (*False Positive*) turun drastis dari 328 menjadi hanya 9 kejadian, dan tanaman yang terlambat disiram (*False Negative*) turun dari 132 menjadi 42 kejadian.
 
 Dengan asumsi biaya agronomi Rp15.000 untuk setiap FP (pemborosan air dan risiko busuk akar) serta Rp45.000 untuk setiap FN (tanaman stres), estimasi kerugian selama 17 hari uji berkurang dari Rp10.860.000 menjadi Rp2.025.000. Ini memberikan penghematan biaya sebesar Rp8.835.000 atau 81,4%.
 
 Peningkatan performa F1-Score juga terlihat merata di semua jenis tanaman dibandingkan aturan *baseline*:
+
 - **Selada**: 0,1081 menjadi 0,8933
 - **Cabai**: 0,1353 menjadi 0,7957
 - **Tomat**: 0,2947 menjadi 0,7838
@@ -79,17 +79,17 @@ python -m src.train                     # (opsional) melatih ulang dan membuat u
 
 **Arsitektur dan *deployment*.** Backend dan tampilan sengaja dipisah:
 
-```
+```text
 Streamlit (Streamlit Community Cloud)  --HTTP-->  FastAPI (PythonAnywhere)  -->  artifacts/model.joblib
 ```
 
-API untuk sensor di lapangan ada di PythonAnywhere ([https://diodevann.pythonanywhere.com/docs#/]), sedangkan dashboard ada di Streamlit Community Cloud. Jadi kalau dashboard sedang *maintenance* atau ramai pengunjung, API tetap berjalan. Alamat API dibaca dari variabel lingkungan `IRRIGATION_API_URL`. Jika API tidak bisa dihubungi, dashboard memakai model di `artifacts/` secara langsung.
+API untuk sensor di lapangan ada di PythonAnywhere (https://diodevann.pythonanywhere.com/docs#/), sedangkan dashboard ada di Streamlit Community Cloud. Jadi kalau dashboard sedang *maintenance* atau ramai pengunjung, API tetap berjalan. Alamat API dibaca dari variabel lingkungan `IRRIGATION_API_URL`. Jika API tidak bisa dihubungi, dashboard memakai model di `artifacts/` secara langsung.
 
 **Masukan dan keluaran.** Masukannya tanaman, jenis tanah, petak, umur tanaman, jam, kelembapan tanah sekarang dan 1-2 jam sebelumnya, suhu, kelembapan udara, cahaya, curah hujan, dan prakiraan hujan 6 jam. Keluarannya keputusan siram atau tidak, probabilitas, *threshold* yang dipakai, pembanding dari *baseline*, dan ringkasan agronomi. Masukan yang kosong, bukan angka, atau di luar rentang wajar ditolak dengan HTTP 422 dan daftar pesan galat, sehingga aplikasi tidak berhenti mendadak.
 
 ## Struktur repositori
 
-```
+```text
 notebooks/      notebook dari EDA sampai penyimpanan model
 data/           data mentah (raw.csv.gz) dan sampel 16 petak
 src/features.py pembersihan, validasi masukan, dan pembuat fitur (dipakai saat pelatihan dan prediksi)
